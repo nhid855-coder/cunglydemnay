@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cụng Ly Đêm Nay – Game bốc lá cho bàn nhậu</title>
+<meta name="description" content="Game bốc lá cho bàn nhậu: Khởi động, Thật hay Thách, Halloween, 18+ và Quẩy mạnh. Hơn 200 lá, tự gắn tên người chơi, chơi offline trên điện thoại.">
+<meta name="keywords" content="game nhậu, drinking game, thật hay thách, game bàn nhậu, trò chơi uống bia, party game, game 18+">
+<link rel="canonical" href="https://nhid855-coder.github.io/cunglydemnay/">
+<meta name="theme-color" content="#2a0f1a">
+<meta name="color-scheme" content="dark">
+<meta name="rating" content="adult">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cụng Ly">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:title" content="Cụng Ly Đêm Nay">
+<meta property="og:description" content="Game bốc lá cho bàn nhậu: Khởi động, Thật hay Thách, Halloween, 18+ và Quẩy mạnh. Hơn 200 lá, tự gắn tên người chơi, chơi offline trên điện thoại.">
+<meta property="og:url" content="https://nhid855-coder.github.io/cunglydemnay/">
+<meta property="og:image" content="https://nhid855-coder.github.io/cunglydemnay/icons/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Be+Vietnam+Pro:wght@400;600;800&display=swap">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Cụng Ly Đêm Nay", "url": "https://nhid855-coder.github.io/cunglydemnay/", "applicationCategory": "GameApplication", "operatingSystem": "Web, Android, iOS", "inLanguage": "vi", "description": "Game bốc lá cho bàn nhậu: Khởi động, Thật hay Thách, Halloween, 18+ và Quẩy mạnh. Hơn 200 lá, tự gắn tên người chơi, chơi offline trên điện thoại.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "VND"}, "contentRating": "18+"}</script>
+<style>
+/* Layout: one-screen app, a bar coaster (round card) in the middle, players as chips above, mode tabs below */
+:root{
+  --bg:#2a0f1a; --bg2:#3b1626; --coaster:#f3e3c3; --ink:#2a0f1a;
+  --fg:#f7e9d7; --muted:#c9a8a0; --amber:#ffb238; --stamp:#c8324b;
+  --display:"Lobster", "Brush Script MT", cursive;
+  --body:"Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{background:radial-gradient(120% 80% at 50% 0%,var(--bg2),var(--bg) 70%);background-color:var(--bg);color:var(--fg);font-family:var(--body);}
+.app{min-height:100%;max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:14px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 24px;box-sizing:border-box}
+h1{font-family:var(--display);font-weight:400;font-size:2.4rem;margin:0;color:var(--amber);text-align:center;line-height:1;text-shadow:0 2px 0 #00000055}
+.sub{text-align:center;color:var(--muted);font-size:.82rem;margin-top:-6px}
+.label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.players{display:flex;flex-direction:column;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:#ffffff14;border:1px solid #ffffff22;border-radius:999px;padding:5px 6px 5px 12px;font-size:.85rem;display:flex;align-items:center;gap:6px}
+.chip button{all:unset;cursor:pointer;width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;color:var(--muted);font-size:.9rem}
+.chip button:hover,.chip button:focus-visible{background:#ffffff22;color:var(--fg)}
+form{display:flex;gap:8px}
+input{flex:1;min-width:0;background:#00000033;border:1px solid #ffffff2a;border-radius:10px;padding:10px 12px;color:var(--fg);font:inherit;font-size:16px}
+input:focus{outline:2px solid var(--amber);outline-offset:1px}
+.btn{font:inherit;font-weight:600;border:0;border-radius:10px;padding:10px 14px;cursor:pointer;background:var(--amber);color:var(--ink)}
+.btn:focus-visible,.tab:focus-visible,.coaster:focus-visible{outline:3px solid var(--fg);outline-offset:3px}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.tab{font:inherit;font-size:.74rem;font-weight:600;padding:9px 4px;border-radius:10px;border:1px solid #ffffff22;background:transparent;color:var(--muted);cursor:pointer;line-height:1.2}
+.tab[aria-pressed="true"]{background:var(--fg);color:var(--ink);border-color:var(--fg)}
+.stage{display:grid;place-items:center;padding-block:6px}
+.coaster{all:unset;box-sizing:border-box;cursor:pointer;width:min(88vw,360px);max-width:100%;aspect-ratio:1;border-radius:50%;
+  background:repeating-radial-gradient(circle at 50% 50%,transparent 0 10px,#00000008 10px 11px),var(--coaster);
+  color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:13%;
+  box-shadow:0 0 0 6px var(--coaster),0 0 0 8px #00000033 inset,0 0 0 9px #a0574433,0 18px 40px #00000077;position:relative;transition:transform .35s cubic-bezier(.2,.9,.3,1.3)}
+.coaster::before{content:"";position:absolute;inset:14px;border-radius:50%;border:2px dashed #2a0f1a2e}
+.coaster.flip{transform:rotate(-8deg) scale(.94)}
+.kind{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--stamp);border:2px solid var(--stamp);border-radius:6px;padding:2px 8px;transform:rotate(-4deg)}
+.text{font-size:clamp(1.02rem,4.6vw,1.28rem);font-weight:600;line-height:1.38;text-wrap:balance}
+.text b{color:var(--stamp)}
+.sips{font-family:var(--display);font-size:1.6rem;color:var(--stamp);line-height:1}
+.hint{font-size:.72rem;color:#2a0f1a99}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.meta button{font:inherit;background:none;border:1px solid #ffffff2a;color:var(--fg);border-radius:8px;padding:6px 10px;cursor:pointer}
+.rules{display:flex;flex-direction:column;gap:6px}
+.rule{background:#ffb2381a;border:1px solid #ffb23855;border-radius:10px;padding:8px 10px;font-size:.84rem;display:flex;justify-content:space-between;gap:8px;align-items:start}
+.rule span{min-width:0}
+.rule button{all:unset;cursor:pointer;color:var(--muted);font-size:.78rem;flex:none}
+.foot{text-align:center;font-size:.72rem;color:var(--muted);line-height:1.5}
+@media (prefers-reduced-motion:reduce){.coaster{transition:none}}
+
+*,*::before,*::after{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font-size:14px;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+.gate{position:fixed;inset:0;z-index:50;background:#14060cdd;display:grid;place-items:center;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px}
+.gate-box{background:var(--bg2);border:1px solid #ffffff22;border-radius:16px;max-width:380px;width:100%;padding:22px;display:flex;flex-direction:column;gap:12px}
+.gate-box h2{font-family:var(--display);font-weight:400;color:var(--amber);margin:0;font-size:1.8rem}
+.gate-box p{margin:0;line-height:1.55;color:var(--fg);font-size:.92rem}
+.gate-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid #ffffff33}
+.toggle{display:flex;gap:6px;align-items:center;font-size:.8rem;color:var(--muted)}
+.toggle button{font:inherit;font-size:.78rem;background:transparent;border:1px solid #ffffff2a;color:var(--muted);border-radius:999px;padding:5px 10px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.foot a{color:var(--muted)}
+.sub{margin-top:8px}
+h1{line-height:1.15}
+.install{display:none}
+.install.show{display:inline-block}
+</style>
+</head>
+<body>
+<div class="app">
+  <div>
+    <h1>Cụng Ly Đêm Nay</h1>
+    <p class="sub">Đặt điện thoại giữa bàn, chạm vào lót ly để bốc lượt</p>
+  </div>
+
+  <section class="players" aria-label="Người chơi">
+    <div class="label">Người chơi</div>
+    <div class="chips" id="chips"></div>
+    <form id="addForm">
+      <input id="nameInput" placeholder="Thêm tên, ví dụ: Tuấn" maxlength="16" autocomplete="off">
+      <button class="btn" type="submit">Thêm</button>
+    </form>
+  </section>
+
+
+  <div class="toggle" role="group" aria-label="Kiểu phạt">
+    <span>Phạt bằng</span>
+    <button type="button" data-u="sip" aria-pressed="true">Ngụm</button>
+    <button type="button" data-u="pt" aria-pressed="false">Điểm phạt</button>
+    <button type="button" class="install" id="installBtn">Cài app</button>
+  </div>
+
+  <div class="tabs" role="group" aria-label="Chế độ chơi" id="tabs"></div>
+
+  <div class="stage">
+    <button class="coaster" id="card" aria-live="polite">
+      <span class="kind" id="kind">Sẵn sàng</span>
+      <span class="text" id="text">Chọn chế độ rồi chạm vào đây để bốc lá đầu tiên</span>
+      <span class="sips" id="sips"></span>
+      <span class="hint" id="hint">chạm để bốc</span>
+    </button>
+  </div>
+
+  <div class="meta">
+    <span id="count">Đã bốc 0 lá</span>
+    <button id="reset" type="button">Xáo lại bộ bài</button>
+  </div>
+
+  <section class="rules" id="rulesBox" hidden>
+    <div class="label">Luật đang áp dụng</div>
+    <div id="rules"></div>
+  </section>
+
+  <p class="foot">Không muốn uống thì chọn "Điểm phạt" hoặc thay bằng nước lọc, không ai ép ai.<br>Đã uống rượu bia thì không lái xe. Chỉ dành cho người từ 18 tuổi.<br><a href="privacy.html">Chính sách quyền riêng tư</a></p>
+</div>
+
+<div class="gate" id="gate" hidden role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+  <div class="gate-box">
+    <h2 id="gateTitle">Chỉ dành cho 18+</h2>
+    <p>Chế độ này có câu hỏi về tình cảm và chuyện người lớn. Chỉ chơi khi mọi người trong bàn đều từ 18 tuổi trở lên và đồng ý chơi.</p>
+    <p>Ai ngại câu nào cứ chọn phạt thay, không ai ép ai.</p>
+    <div class="gate-actions">
+      <button class="btn" type="button" id="gateYes">Cả bàn đều trên 18</button>
+      <button class="btn ghost" type="button" id="gateNo">Quay lại</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const MODES={
+  warm:{name:"Khởi động",cards:[
+    ["Ai cũng uống","Cả bàn cụng ly mở màn!",1],
+    ["Chỉ định","{p} chọn một người uống cùng mình.",2],
+    ["Ai từng","Ai từng ngủ quên trong giờ làm thì uống.",1],
+    ["Ai từng","Ai đang có crush thì uống.",1],
+    ["Ai từng","Ai từng nhắn nhầm tin cho sếp hoặc người yêu cũ thì uống.",2],
+    ["Ai từng","Ai từng giả vờ bận để từ chối một buổi hẹn thì uống.",1],
+    ["Ai từng","Ai từng stalk Facebook người yêu cũ trong tháng này thì uống.",2],
+    ["Ai từng","Ai từng ngủ gật trong cuộc họp thì uống.",1],
+    ["Ai từng","Ai từng mua đồ online rồi giấu không cho người nhà biết thì uống.",1],
+    ["Ai từng","Ai từng quên sinh nhật người thân thì uống.",2],
+    ["Ai từng","Ai từng bị tắc đường tới mức muốn bỏ xe đi bộ thì uống.",1],
+    ["Ai từng","Ai đang độc thân thì uống mừng tự do.",1],
+    ["Ai từng","Ai đã đi nước ngoài năm nay thì uống.",1],
+    ["Ai từng","Ai từng xem hết một bộ phim trong một đêm thì uống.",1],
+    ["Ai từng","Ai có hơn 1.000 tin nhắn chưa đọc thì uống.",1],
+    ["Thử thách","{p} kể một chuyện xấu hổ nhất tuần này, không kể thì uống.",2],
+    ["Thử thách","{p} bắt chước giọng một người trong bàn. Cả bàn đoán sai thì {p} uống.",2],
+    ["Thử thách","{p} nói 3 điều về mình, 1 điều là nói dối. Cả bàn đoán đúng thì {p} uống.",2],
+    ["Đếm số","Đếm từ 1, ai gặp số có 7 hoặc chia hết cho 7 thì vỗ tay. Sai thì uống.",2],
+    ["Bên trái","Người ngồi bên trái {p} uống.",1],
+    ["Bên phải","Người ngồi bên phải {p} uống.",1],
+    ["Đối diện","Người ngồi đối diện {p} uống.",1],
+    ["Bình chọn","Cả bàn chỉ tay vào người hay trễ hẹn nhất. Người đó uống.",2],
+    ["Bình chọn","Cả bàn chỉ tay vào người dễ say nhất. Người đó uống trước cho quen.",1],
+    ["Bình chọn","Cả bàn chỉ tay vào người hay sống ảo nhất. Người đó uống.",2],
+    ["Bình chọn","Ai dễ cưới sớm nhất bàn? Đếm 3 rồi chỉ tay. Người bị chỉ nhiều nhất uống.",2],
+    ["Tha","{p} được miễn lượt tiếp theo của mình.",0],
+    ["Nhanh tay","Người cuối cùng giơ tay lên trời uống.",1],
+    ["Nhanh tay","Người cuối cùng chạm tay lên mũi uống.",1],
+    ["Nhanh tay","Người cuối cùng đứng dậy uống.",1],
+    ["Chủ đề","{p} chọn một chủ đề, ví dụ hãng bia. Lần lượt kể tên, ai bí thì uống.",2],
+    ["Chủ đề","Bắt đầu từ {p}: lần lượt kể tên món nhậu. Ai bí hoặc lặp lại thì uống.",2],
+    ["Chủ đề","Bắt đầu từ {p}: kể tên tỉnh thành Việt Nam. Ai bí thì uống.",2],
+    ["Nối chữ","{p} nói một từ, người kế tiếp nối chữ cuối. Ai bí trong 5 giây thì uống.",2],
+    ["Luật mới","Từ giờ, ai nói tiếng Anh phải uống. Kéo dài đến khi có lá luật khác.",1,"rule"],
+    ["Luật mới","Từ giờ, ai gọi tên thật của người khác phải uống. Chỉ được gọi biệt danh.",1,"rule"],
+    ["Luật mới","Từ giờ, ai cầm ly bằng tay phải phải uống.",1,"rule"],
+    ["Cụng ly","{p} và {p2} cụng ly, mỗi người uống một ngụm.",1],
+    ["Gương soi","{p2} làm động tác gì thì {p} phải làm theo trong 1 phút. Làm sai thì uống.",2],
+    ["Điểm danh","Ai đến muộn nhất tối nay thì uống.",2],
+  ]},
+  truth:{name:"Thật hay Thách",cards:[
+    ["Thật","{p}: Ai trong bàn này bạn muốn đi du lịch cùng nhất? Không trả lời thì uống.",2],
+    ["Thật","{p}: Lần gần nhất bạn khóc là vì sao?",2],
+    ["Thật","{p}: Tin nhắn gần nhất bạn gửi là cho ai? Đọc to hoặc uống.",3],
+    ["Thật","{p}: Bạn từng nói dối ai trong bàn này chuyện gì?",3],
+    ["Thật","{p}: Chấm điểm nhan sắc {p2} trên thang 10.",2],
+    ["Thật","{p}: Điều bạn hối hận nhất năm nay?",2],
+    ["Thật","{p}: Ai là người bạn nhắn tin nhiều nhất tuần này?",2],
+    ["Thật","{p}: Ấn tượng đầu tiên của bạn về {p2} là gì?",2],
+    ["Thật","{p}: Mối tình đầu của bạn tên gì?",2],
+    ["Thật","{p}: Lý do chia tay mối tình gần nhất?",3],
+    ["Thật","{p}: Bạn từng thích ai trong nhóm bạn này chưa?",3],
+    ["Thật","{p}: Thói quen xấu nhất bạn giấu mọi người?",2],
+    ["Thật","{p}: Nếu trúng 1 tỷ, việc đầu tiên bạn làm là gì?",1],
+    ["Thật","{p}: Ai trong bàn bạn nghĩ sẽ giàu nhất sau 10 năm?",2],
+    ["Thật","{p}: Bạn đã từng ghen với ai trong bàn này chưa?",3],
+    ["Thật","{p}: Lần cuối bạn xem lén điện thoại người khác là khi nào?",2],
+    ["Thật","{p}: Bạn sợ điều gì nhất?",1],
+    ["Thật","{p}: Một bí mật về công việc mà sếp không biết?",3],
+    ["Thật","{p}: Bạn đã từng tỏ tình bị từ chối chưa? Kể đi.",2],
+    ["Thật","{p}: Nếu phải đổi cuộc sống với một người trong bàn, bạn chọn ai?",2],
+    ["Thách","{p} gọi điện cho người thứ 3 trong danh bạ và nói \"Chúc mừng Halloween\".",3],
+    ["Thách","{p} để {p2} đăng một story bất kỳ lên tài khoản của bạn.",3],
+    ["Thách","{p} nhảy 15 giây theo bài cả bàn chọn.",2],
+    ["Thách","{p} nói chuyện bằng giọng miền khác cho tới lượt sau.",2],
+    ["Thách","{p} cho cả bàn xem ảnh thứ 10 trong thư viện ảnh.",3],
+    ["Thách","{p} khen {p2} 3 câu thật lòng, không được cười.",1],
+    ["Thách","{p} giả làm MC giới thiệu từng người trong bàn.",2],
+    ["Thách","{p} hát một đoạn điệp khúc bài hát bạn thích.",2],
+    ["Thách","{p} cho {p2} xem lịch sử tìm kiếm Google gần nhất.",3],
+    ["Thách","{p} nhắn \"Mình nhớ bạn\" cho người cuối cùng bạn nhắn tin.",3],
+    ["Thách","{p} để {p2} đổi ảnh đại diện Zalo của bạn trong 1 tiếng.",3],
+    ["Thách","{p} diễn lại cảnh tỏ tình với {p2}. Cả bàn chấm điểm.",2],
+    ["Thách","{p} đọc to 3 tin nhắn gần nhất trong nhóm chat gia đình.",2],
+    ["Thách","{p} kể một chuyện cười. Không ai cười thì {p} uống.",2],
+    ["Thách","{p} chụp selfie mặt xấu nhất và gửi vào nhóm chat chung.",3],
+    ["Thách","{p} gọi điện cho mẹ và nói \"Con thương mẹ\".",1],
+    ["Thách","{p} cho cả bàn xem ứng dụng dùng nhiều nhất trong tuần.",2],
+    ["Thách","{p} làm 10 cái squat ngay tại chỗ.",2],
+    ["Thật khó","{p}: Kể tên người bạn từng thích thầm mà người đó không biết. Không nói thì cạn ly.",4],
+    ["Thật khó","{p}: Nếu phải cắt liên lạc với một người trong bàn này, bạn chọn ai và vì sao?",4],
+    ["Thật khó","{p}: Điều bạn ghét nhất ở {p2} là gì? Nói thật, không được nói đùa.",4],
+    ["Thật khó","{p}: Bạn đã từng nói xấu ai trong bàn này sau lưng chưa? Nói gì?",4],
+    ["Thật khó","{p}: Lương hoặc thu nhập của bạn có cao hơn {p2} không? Trả lời có hoặc không.",3],
+    ["Thật khó","{p}: Người yêu cũ nào bạn vẫn còn nghĩ tới? Gọi tên.",4],
+    ["Thật khó","{p}: Lần gần nhất bạn nói dối người yêu hoặc gia đình là chuyện gì?",4],
+    ["Thật khó","{p}: Nếu {p2} tỏ tình với bạn ngay bây giờ, bạn trả lời sao?",4],
+    ["Thật khó","{p}: Chuyện gì bạn làm mà nếu bố mẹ biết sẽ thất vọng nhất?",4],
+    ["Thật khó","{p}: Xếp hạng 3 người trong bàn theo độ thân với bạn, từ thân nhất đến ít nhất.",4],
+    ["Thật khó","{p}: Bạn từng phản bội lòng tin của ai chưa? Kể lại.",4],
+    ["Thật khó","{p}: Ai trong bàn bạn nghĩ đang giả tạo nhất? Chỉ tay.",5],
+    ["Thật khó","{p}: Bạn từng nghỉ ốm giả để đi chơi chưa? Đi đâu, với ai?",3],
+    ["Thật khó","{p}: Lời nói dối lớn nhất bạn từng nói trong buổi phỏng vấn xin việc?",3],
+    ["Thật khó","{p}: Có ai trong nhóm này bạn từng ghen tị không? Vì điều gì?",4],
+    ["Thật khó","{p}: Mở ứng dụng hẹn hò hoặc tin nhắn chờ, cho cả bàn xem cuộc trò chuyện gần nhất.",5],
+    ["Thách khó","{p} nhắn tin cho người yêu cũ: \"Dạo này bạn ổn không?\" và gửi thật.",5],
+    ["Thách khó","{p} đưa điện thoại đã mở khóa cho {p2} lướt 30 giây, không được giành lại.",5],
+    ["Thách khó","{p} để cả bàn đọc 5 tin nhắn gần nhất với người bạn nhắn nhiều nhất.",5],
+    ["Thách khó","{p} gọi video cho crush hoặc người yêu và nói chuyện trên loa ngoài 30 giây.",5],
+    ["Thách khó","{p} thả tim 3 ảnh cũ nhất trên trang cá nhân của người yêu cũ.",5],
+    ["Thách khó","{p} đăng story \"Có ai rảnh đi cà phê với mình không?\" và để 10 phút.",4],
+    ["Thách khó","{p} nhắn cho sếp hoặc trưởng nhóm: \"Em cảm ơn anh/chị vì đã luôn kiên nhẫn với em\".",4],
+    ["Thách khó","{p} để {p2} soạn và gửi một tin nhắn bất kỳ cho một người trong danh bạ của bạn.",5],
+    ["Thách khó","{p} gọi cho người thân và thú nhận một chuyện nhỏ bạn từng giấu.",5],
+    ["Thách khó","{p} đọc to ghi chú gần nhất trong điện thoại.",4],
+    ["Thách khó","{p} cho cả bàn xem ảnh chụp màn hình gần nhất của bạn và giải thích.",4],
+    ["Thách khó","{p} nói thật một điều khiến bạn khó chịu về {p2}, rồi hai người cụng ly làm hòa.",3],
+  ]},
+  boo:{name:"Halloween",cards:[
+    ["Ma nhập","{p} bị ma nhập: chỉ được nói thì thầm cho tới lượt sau. Lỡ nói to thì uống.",2,"rule"],
+    ["Bí ngô","Ai đang mặc đồ màu cam hoặc đen thì uống.",1],
+    ["Kể chuyện","{p} kể chuyện ma trong 30 giây. Ai giật mình thì uống.",2],
+    ["Ma cà rồng","{p} là ma cà rồng: chọn một người, người đó uống gấp đôi.",2],
+    ["Hù dọa","{p2} hù {p}. Nếu {p} giật mình thì {p} uống, không thì {p2} uống.",2],
+    ["Bùa chú","{p} đặt một luật mới cho bàn tới khi có luật khác.",0,"rule-free"],
+    ["Ai từng","Ai từng sợ không dám đi vệ sinh ban đêm thì uống.",1],
+    ["Ai từng","Ai từng xem phim ma xong phải ngủ bật đèn thì uống.",1],
+    ["Ai từng","Ai tin có ma thì uống. Ai không tin thì uống luôn cho chắc.",1],
+    ["Ai từng","Ai từng vào nhà ma ở hội chợ mà hét lên thì uống.",1],
+    ["Ai từng","Ai hóa trang tối nay thì được miễn lượt này. Ai không hóa trang thì uống.",1],
+    ["Xác sống","Cả bàn đứng dậy đi như zombie. Người ngồi xuống cuối cùng uống.",2],
+    ["Kẹo hay ghẹo","{p} chọn: được miễn lượt, hoặc bắt {p2} uống 3 ngụm.",3],
+    ["Kẹo hay ghẹo","{p2} hỏi {p} \"Kẹo hay ghẹo?\". Chọn kẹo thì {p} uống 1 ngụm, chọn ghẹo thì làm theo yêu cầu của {p2}.",1],
+    ["Phù thủy","{p} đoán xem {p2} đang nghĩ đến con số nào từ 1 đến 5. Sai thì {p} uống.",2],
+    ["Trăng tròn","Người nhỏ tuổi nhất bàn uống.",1],
+    ["Trăng tròn","Người lớn tuổi nhất bàn uống.",1],
+    ["Đèn tắt","Ai đang cầm điện thoại khi lá này lật ra thì uống.",1],
+    ["Ma sói","{p} hú như sói thật to. Ai cười thì uống.",1],
+    ["Bóng ma","{p} trở thành bóng ma: ai nói chuyện với {p} thì phải uống, cho tới lượt sau.",2,"rule"],
+    ["Lời nguyền","{p} nguyền {p2}: mỗi lần {p} uống thì {p2} uống cùng, tới lượt sau.",1,"rule"],
+    ["Xác ướp","{p} làm xác ướp: không được dùng tay cho tới lượt sau. Cần uống thì nhờ người khác.",2,"rule"],
+    ["Mèo đen","{p} kêu \"meo\" sau mỗi câu nói cho tới lượt sau. Quên thì uống.",2,"rule"],
+    ["Quan tài","{p} nằm xuống giả chết 10 giây. Ai làm {p} cười trước thì {p} uống, không thì người đó uống.",2],
+    ["Thầy bói","{p} bói tương lai tình duyên của {p2}. Cả bàn thấy hay thì {p2} uống.",2],
+    ["Gọi hồn","Cả bàn nắm tay nhau im lặng 10 giây. Ai cười hoặc nói trước thì uống.",2],
+    ["Đổi xác","{p} và {p2} hoán đổi linh hồn: nói chuyện như người kia cho tới lượt sau.",2],
+    ["Ma da","Ai đang uống nước lọc thì được tha. Ai uống bia thì uống thêm.",1],
+    ["Bộ xương","{p} kể 3 bộ phim kinh dị trong 10 giây. Không kịp thì uống.",2],
+    ["Nhà ma","Người ngồi gần cửa ra vào nhất uống để giữ cửa.",1],
+  ]},
+  spicy:{name:"18+",cards:[
+    ["Ai từng 18+","Ai từng hôn người mới quen trong cùng một buổi tối thì uống.",2],
+    ["Ai từng 18+","Ai từng nhắn tin \"thả thính\" lúc nửa đêm thì uống.",2],
+    ["Ai từng 18+","Ai từng hẹn hò với hai người cùng lúc thì uống.",3],
+    ["Ai từng 18+","Ai từng quay lại với người yêu cũ rồi lại chia tay lần nữa thì uống.",2],
+    ["Ai từng 18+","Ai từng bị bố mẹ bắt gặp đang hôn nhau thì uống.",3],
+    ["Ai từng 18+","Ai từng dùng app hẹn hò thì uống. Ai từng gặp người trên app thì uống gấp đôi.",2],
+    ["Ai từng 18+","Ai từng thích người đã có người yêu thì uống.",2],
+    ["Ai từng 18+","Ai từng ngủ lại qua đêm ở nhà người mới hẹn hò thì uống.",3],
+    ["Thật 18+","{p}: Nụ hôn đầu tiên của bạn là năm bao nhiêu tuổi, với ai, ở đâu?",3],
+    ["Thật 18+","{p}: Kiểu người khiến bạn mất kiểm soát nhất là kiểu nào?",2],
+    ["Thật 18+","{p}: Bộ phận nào trên người khác giới (hoặc người bạn thích) cuốn hút bạn nhất?",3],
+    ["Thật 18+","{p}: Lần hẹn hò tệ nhất của bạn diễn ra thế nào?",2],
+    ["Thật 18+","{p}: Bạn đã từng hôn bao nhiêu người? Nói con số.",4],
+    ["Thật 18+","{p}: Nơi kỳ lạ nhất bạn từng hôn ai đó là ở đâu?",4],
+    ["Thật 18+","{p}: Trong bàn này, nếu buộc phải hẹn hò một người, bạn chọn ai?",4],
+    ["Thật 18+","{p}: Câu thả thính sến nhất bạn từng dùng là gì? Nói lại y nguyên.",2],
+    ["Thật 18+","{p}: Bạn đã từng mơ thấy ai trong bàn này chưa? Mơ gì?",4],
+    ["Thật 18+","{p}: Điều bạn thấy \"red flag\" nhất ở người yêu là gì? Bạn có red flag đó không?",2],
+    ["Thật 18+","{p}: Lần gần nhất bạn hôn ai đó là khi nào?",3],
+    ["Thật 18+","{p}: Có bao giờ bạn nhắn tin tán tỉnh rồi gửi nhầm người chưa?",3],
+    ["Thách 18+","{p} nói câu thả thính hay nhất có thể với {p2}, nhìn thẳng vào mắt.",2],
+    ["Thách 18+","{p} nhắn \"Đang nghĩ về bạn đó\" cho người thứ 5 trong danh sách chat.",4],
+    ["Thách 18+","{p} nhảy một điệu quyến rũ 15 giây. Cả bàn chấm điểm, dưới 5 điểm thì uống.",3],
+    ["Thách 18+","{p} và {p2} uống giao bôi, tay vòng tay. Ai ngại thì uống thêm.",2],
+    ["Thách 18+","{p} ngồi cạnh {p2} và nắm tay tới lượt sau, nếu {p2} đồng ý. Không thì cả hai uống.",2,"rule"],
+    ["Thách 18+","{p} đọc to tin nhắn sến súa nhất bạn từng gửi cho người yêu.",4],
+    ["Thách 18+","{p} gửi một sticker thả tim cho crush ngay bây giờ.",4],
+    ["Thách 18+","{p} tả người yêu lý tưởng bằng 3 từ, cả bàn đoán xem có giống ai trong bàn không.",2],
+    ["Xấu hổ","{p} kể lần bị \"quê\" nhất trước mặt người mình thích.",3],
+    ["Xấu hổ","{p} kể lần say xỉn mất mặt nhất của bạn.",3],
+    ["Xấu hổ","{p} cho cả bàn xem ảnh dìm hàng nhất của bạn trong điện thoại.",3],
+    ["Xấu hổ","{p} hát một bài tình ca, thêm biểu cảm thật sến.",3],
+    ["Xấu hổ","{p} đọc to bài đăng Facebook cũ nhất bạn tìm được.",3],
+    ["Xấu hổ","{p} kể lần bị \"bơ\" tin nhắn đau nhất.",2],
+    ["Xấu hổ","{p} diễn lại cảnh bạn ngã hoặc vấp trước đám đông.",2],
+    ["Xấu hổ","{p} gọi một người bạn và hát \"Happy Birthday\" dù hôm nay không phải sinh nhật họ.",3],
+    ["Xấu hổ","{p} để {p2} đặt biệt danh mới cho bạn. Cả bàn gọi bằng tên đó tới hết game.",2,"rule"],
+    ["Xấu hổ","{p} kể chuyện ngại nhất từng xảy ra trong nhà vệ sinh.",3],
+    ["Nóng","{p}: Lần đầu \"chuyện ấy\" của bạn là năm bao nhiêu tuổi? Nói con số hoặc cạn ly.",5],
+    ["Nóng","{p}: Body count của bạn là bao nhiêu? Nói thật hoặc cạn ly.",5],
+    ["Nóng","{p}: Bạn thích bật đèn hay tắt đèn?",3],
+    ["Nóng","{p}: Nơi liều lĩnh nhất bạn từng \"làm chuyện ấy\"?",5],
+    ["Nóng","{p}: Kể một fantasy bạn chưa từng nói với ai, nói giảm nói tránh cũng được.",5],
+    ["Nóng","{p}: Sáng, trưa hay tối? Chọn một và giải thích.",3],
+    ["Nóng","{p}: Bạn từng có \"tình một đêm\" chưa? Có hay không thôi.",4],
+    ["Nóng","{p}: Đồ ngủ hiện tại của bạn là gì?",2],
+    ["Nóng","{p}: Chấm điểm kỹ năng hôn của chính bạn trên thang 10. Cả bàn có quyền phản bác.",3],
+    ["Nóng","{p}: Điều táo bạo nhất bạn từng làm vì một người?",4],
+    ["Nóng","{p}: Bạn từng gửi ảnh \"nhạy cảm\" cho ai chưa? Có hay không thôi.",4],
+    ["Nóng","{p}: Người nổi tiếng nào bạn sẵn sàng bỏ hết để đi một đêm?",2],
+    ["Nóng","Ai từng hôn người cùng giới thì uống.",2],
+    ["Nóng","Ai từng \"làm chuyện ấy\" trong xe ô tô thì uống.",3],
+    ["Nóng","Ai từng bị bắt quả tang lúc đang thân mật thì uống.",3],
+    ["Nóng","Ai từng nói dối về body count thì uống.",3],
+    ["Couple","Các cặp đôi đang yêu trong bàn cùng uống, tay vòng tay.",2],
+    ["Couple","Nếu {p} đang có người yêu trong bàn: hôn người yêu 5 giây. Không có thì uống.",3],
+    ["Couple","Các cặp đôi: mỗi người viết ra món đồ lót người kia hay mặc, so đáp án. Sai thì uống.",3],
+    ["Couple","Các cặp đôi: ai chủ động nhắn tin trước sau lần cãi nhau gần nhất? Người còn lại uống.",2],
+    ["Couple","Các cặp đôi: kể lần hẹn hò đầu tiên. Hai người kể lệch nhau thì cả hai uống.",3],
+    ["Couple","Nếu {p} có người yêu trong bàn: ngồi lên đùi người yêu tới lượt sau.",2,"rule"],
+    ["Couple","{p}: Điều người yêu bạn làm \"trên giường\" giỏi nhất là gì? Không trả lời thì người yêu bạn uống.",4],
+    ["Couple","Các cặp đôi: đọc to tin nhắn sến nhất trong chat của hai người.",4],
+    ["Người cũ","Ai đang ngồi cùng bàn với người yêu cũ thì uống.",3],
+    ["Người cũ","Hai người từng yêu nhau trong bàn: cụng ly với nhau và nói một câu cảm ơn thật lòng.",3],
+    ["Người cũ","{p}: Người yêu cũ nào hôn giỏi nhất? Không được gọi tên, chỉ được gợi ý.",4],
+    ["Người cũ","{p}: Bạn chia tay vì lý do gì với người cũ gần nhất? Nói thật.",4],
+    ["Người cũ","{p}: Kỷ niệm đẹp nhất với người yêu cũ là gì?",3],
+    ["Người cũ","{p}: Nếu người cũ nhắn tin ngay bây giờ, bạn có rep không?",3],
+    ["Người cũ","Ai từng \"quay lại\" với người cũ chỉ một đêm thì uống.",4],
+    ["Người cũ","Ai vẫn còn giữ ảnh người cũ trong điện thoại thì uống.",3],
+  ]},
+  wild:{name:"Quẩy mạnh",cards:[
+    ["Cạn ly","{p} cạn ly. 100%!",5],
+    ["Cạn ly","{p} và {p2} cùng cạn ly. Ai xong sau thì uống thêm 1 ngụm.",5],
+    ["Thác nước","Mọi người cùng uống. Không ai được dừng trước {p}.",3],
+    ["Bạn nhậu","{p} chọn {p2} làm bạn nhậu: một người uống thì người kia uống cùng, tới hết game.",1,"rule"],
+    ["Ai từng","Ai từng say tới mức không nhớ đường về thì uống.",2],
+    ["Ai từng","Ai từng nôn sau khi nhậu thì uống. Lần này cố giữ nhé.",2],
+    ["Ai từng","Ai từng nhắn tin lúc say rồi hôm sau hối hận thì uống.",2],
+    ["Ai từng","Ai từng ngủ lại nhà bạn vì say không về được thì uống.",2],
+    ["Thần tốc","{p} uống một ngụm và kể tên 5 loại bia trong 10 giây. Không kịp thì uống thêm.",3],
+    ["Vòng tròn","Bắt đầu từ {p}, mỗi người uống thêm một ngụm so với người trước.",3],
+    ["Câm lặng","{p} không được nói cho tới lượt sau. Lỡ nói thì cạn ly.",3,"rule"],
+    ["Đổi chỗ","{p} và {p2} đổi ly cho nhau rồi cùng uống.",2],
+    ["Đặt cược","{p} cược với {p2}: oẳn tù tì, ai thua uống 3 ngụm.",3],
+    ["Đặt cược","{p} tung đồng xu. Ngửa thì {p} uống, sấp thì cả bàn trừ {p} uống.",3],
+    ["Kẻ thứ ba","Người thứ ba gọi tên {p} trong 1 phút tới phải uống.",2,"rule"],
+    ["Thành thật","Người đang tỉnh nhất bàn uống. Cả bàn quyết.",2],
+    ["Vua bàn nhậu","{p} làm vua: ra lệnh cho bất kỳ ai uống bất kỳ lúc nào, tới lượt sau.",2,"rule"],
+    ["Tay trái","Từ giờ chỉ được uống bằng tay trái. Ai quên thì uống thêm.",2,"rule"],
+    ["Không chỉ tay","Từ giờ cấm chỉ tay. Ai chỉ tay thì uống.",2,"rule"],
+    ["Một hai ba","Cả bàn cùng đếm 1, 2, 3, dô! Ai không hô thì uống.",2],
+    ["Thử thách","{p} giữ thăng bằng trên một chân 10 giây. Ngã thì uống.",2],
+    ["Thử thách","{p} đọc nhanh \"Nồi đồng nấu ốc, nồi đất nấu ếch\" 3 lần. Vấp thì uống.",2],
+    ["Thử thách","{p} và {p2} vật tay. Người thua uống.",3],
+    ["Thử thách","{p} và {p2} nhìn nhau không chớp mắt. Ai chớp trước uống.",2],
+    ["Bom hẹn giờ","{p} đếm ngược từ 10 rồi chỉ một người bất kỳ. Người đó uống.",2],
+    ["Bom","Người đang có ly đầy nhất uống tới khi bằng người khác.",3],
+    ["Ai say hơn","{p} và {p2} đi thẳng một đường. Cả bàn chấm ai lảo đảo hơn, người đó uống.",2],
+    ["Chia đôi","{p} chia số ngụm: tổng 6 ngụm, chia cho ai cũng được, kể cả mình.",6],
+    ["Nhân đôi","Lá tiếp theo, số ngụm nhân đôi.",0,"rule"],
+    ["Hồi máu","Cả bàn nghỉ 1 phút, uống nước lọc và ăn mồi.",0],
+  ]}
+};
+const $=id=>document.getElementById(id);
+let players=["Nhi","Tuấn","Linh","Bảo"];
+try{const s=JSON.parse(localStorage.getItem("cl-players")||"null");if(Array.isArray(s)&&s.length)players=s}catch(e){}
+let mode="warm",deck=[],drawn=0,rules=[];
+function save(){try{localStorage.setItem("cl-players",JSON.stringify(players))}catch(e){}}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function renderPlayers(){
+  $("chips").innerHTML=players.map((p,i)=>`<span class="chip">${esc(p)}<button type="button" aria-label="Xóa ${esc(p)}" data-i="${i}">×</button></span>`).join("")||'<span class="sub" style="margin:0">Chưa có ai, thêm ít nhất 2 người</span>';
+}
+$("chips").onclick=e=>{const i=e.target.dataset.i;if(i!=null){players.splice(+i,1);save();renderPlayers()}};
+$("addForm").onsubmit=e=>{e.preventDefault();const v=$("nameInput").value.trim();if(v&&!players.includes(v)){players.push(v);save();renderPlayers()}$("nameInput").value="";$("nameInput").focus()};
+function renderTabs(){
+  $("tabs").innerHTML=Object.entries(MODES).map(([k,m])=>`<button class="tab" type="button" data-k="${k}" aria-pressed="${k===mode}">${m.name}</button>`).join("");
+}
+$("tabs").onclick=e=>{const k=e.target.dataset.k;if(k){if(k==="spicy"&&!adult){$("gate").hidden=false;$("gateYes").focus();return}mode=k;renderTabs();shuffle();show(k==="spicy"?["Chỉ dành cho 18+","Chỉ chơi khi cả bàn đều trên 18 tuổi và đồng ý. Ai ngại câu nào thì uống thay, không ép. Chạm để bốc.",null]:["Đổi chế độ",MODES[k].name+": chạm để bốc lá đầu tiên",null])}};
+function shuffle(){deck=MODES[mode].cards.slice();for(let i=deck.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[deck[i],deck[j]]=[deck[j],deck[i]]}drawn=0;updateCount()}
+function updateCount(){$("count").textContent=`Đã bốc ${drawn}/${MODES[mode].cards.length} lá`}
+function pick(n){const a=players.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,n)}
+function show(c,html){
+  $("kind").textContent=c[0];
+  $("text").innerHTML=html||esc(c[1]);
+  $("sips").textContent=c[2]==null?"":c[2]===0?(unit==="sip"?"Không phải uống":"Không bị phạt"):c[2]+(unit==="sip"?" ngụm":" điểm phạt");
+  $("hint").textContent=deck.length?"chạm để bốc tiếp":"hết bộ, chạm để xáo lại";
+}
+function renderRules(){
+  $("rulesBox").hidden=!rules.length;
+  $("rules").innerHTML=rules.map((r,i)=>`<div class="rule"><span>${r}</span><button type="button" data-r="${i}">Bỏ</button></div>`).join("");
+}
+$("rules").onclick=e=>{const i=e.target.dataset.r;if(i!=null){rules.splice(+i,1);renderRules()}};
+function draw(){
+  if(players.length<2){show(["Thiếu người","Thêm ít nhất 2 người chơi để bắt đầu.",null]);$("nameInput").focus();return}
+  if(!deck.length)shuffle();
+  const c=deck.pop();drawn++;updateCount();
+  const [a,b]=pick(2);
+  const html=esc(c[1]).replace(/\{p\}/g,`<b>${esc(a)}</b>`).replace(/\{p2\}/g,`<b>${esc(b)}</b>`);
+  const card=$("card");card.classList.add("flip");
+  setTimeout(()=>{show(c,html);card.classList.remove("flip")},160);
+  if(c[3]==="rule"){rules.unshift(html);rules=rules.slice(0,3);renderRules()}
+  if(c[3]==="rule-free"){rules.unshift(`Luật của <b>${esc(a)}</b>: tự đặt rồi nói to cho cả bàn`);rules=rules.slice(0,3);renderRules()}
+}
+$("card").onclick=draw;
+$("reset").onclick=()=>{shuffle();rules=[];renderRules();show(["Đã xáo","Bộ bài mới. Chạm để bốc.",null])};
+let adult=false,unit="sip",lastCard=null;
+try{adult=localStorage.getItem("cl-adult")==="1";unit=localStorage.getItem("cl-unit")||"sip"}catch(e){}
+$("gateYes").onclick=()=>{adult=true;try{localStorage.setItem("cl-adult","1")}catch(e){}$("gate").hidden=true;mode="spicy";renderTabs();shuffle();show(["Chế độ 18+","Chạm để bốc lá đầu tiên. Ai ngại thì nhận phạt thay.",null])};
+$("gateNo").onclick=()=>{$("gate").hidden=true};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("gate").hidden=true});
+function renderUnit(){document.querySelectorAll(".toggle [data-u]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.u===unit))}
+document.querySelector(".toggle").addEventListener("click",e=>{const u=e.target.dataset.u;if(u){unit=u;try{localStorage.setItem("cl-unit",u)}catch(e){}renderUnit()}});
+renderUnit();
+renderPlayers();renderTabs();shuffle();
+// PWA
+if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
+let deferredPrompt=null;
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e;$("installBtn").classList.add("show")});
+$("installBtn").onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$("installBtn").classList.remove("show")};
+</script>
+</body>
+</html>
